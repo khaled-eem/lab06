@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ student.name }}'s Details</h2>
+<p>Age: {{ student.age }}</p>
+<p>Email: {{ student.email }}</p>
+
+<h3>Courses</h3>
+<ul>
+    {% for course in student.courses.all %}
+    <li>{{ course.name }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Add a Course to {{ student.name }}</h3>
+<form method="post">
+    {% csrf_token %}
+    <select name="course">
+        {% for course in notRegisteredCourses %}
+        <option value="{{ course.id }}">{{ course.name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Add Course">
+</form>
